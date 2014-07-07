@@ -10,8 +10,12 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: db/development.sqlite3
+  adapter: postgresql
+  database: tv_event_tracker_dev
+  host: localhost
+  port: 5432
+  pool: 10
+  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,4 +31,9 @@ test:
 #   sqlite3://myuser:mypass@localhost/full/path/to/somedatabase
 #
 production:
-  url: <%= ENV["DATABASE_URL"] %>
+  adapter: postgresql
+  database: <%= ENV['DATABASE_NAME'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: 5432
+  pool: 10
+  timeout: 5000
