@@ -1,10 +1,11 @@
 class BeamlyRetrieve
-
-  conn = Faraday.new(:url => 'https://api.zeebox.com') do |faraday|
-    faraday.request  :url_encoded             # form-encode POST params
-    faraday.response :logger                  # log requests to STDOUT
-    faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-    faraday.headers = {'zeebox-app-id' => '8e40ef06', 'zeebox-app-key' => '9a7caddc6a9e5434fb02ab06f7277be4'}
+  def initialize
+    @conn = Faraday.new(:url => 'https://api.zeebox.com') do |faraday|
+      faraday.request  :url_encoded             # form-encode POST params
+      faraday.response :logger                  # log requests to STDOUT
+      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+      faraday.headers = {'zeebox-app-id' => '8e40ef06', 'zeebox-app-key' => '9a7caddc6a9e5434fb02ab06f7277be4'}
+    end
   end
 
   def masterproviders_by_postcode(tvc, postcode)
@@ -27,9 +28,22 @@ class BeamlyRetrieve
    end 
   end
 
+  def populate_episodes_by_series(brand)
+    episodes = get_episodes_by_series(brand)
+    binding.pry
+  end
+
+  #use this one:
   def get_episodes_by_series(series_id)
-    conn.get do |req|
+    @conn.get do |req|
       req.url "/meta/episodes?brand=#{series_id}"
+    end
+  end
+
+  #use this one:
+  def get_episode(episode_id)
+    conn.get do |req|
+      req.url "/epg/1/episode/#{episode_id}"
     end
   end
 

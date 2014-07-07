@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.0.0'
 gem 'dotenv-rails', :groups => [:development, :test]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'faraday'
@@ -7,6 +7,8 @@ gem 'twitter'
 gem 'tweetstream'
 gem 'redis'
 gem 'pry'
+
+gem 'rails_12factor', group: :production
 
 gem 'rails', '4.1.0.rc2'
 # Use sqlite3 as the database for Active Record
@@ -43,6 +45,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'pg'
 
 group :development do
   gem 'better_errors'
