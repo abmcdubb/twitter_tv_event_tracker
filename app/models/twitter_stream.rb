@@ -21,9 +21,8 @@ class TwitterStream
 
   def start_stream  
     @client.track(@search_terms.each {|term| print "'#{term} ',"}) do |status|
-      count = REDIS.incr("#{[status.created_at]}")
-      puts "#{status.created_at}: #{status.text} #{count}"
-      # puts @search_terms
+      count = REDIS.incr("#{status.created_at}")
+      # puts "#{status.created_at}: #{status.text} #{count}"
     end
   end
 
